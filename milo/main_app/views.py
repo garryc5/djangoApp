@@ -90,7 +90,9 @@ class ActivityCreate(CreateView):
     model = Activity
     fields = ['activity', 'weight', 'reps', 'date']
     success_url = '/profile/'
-
+    def form_valid(self, form):
+      form.instance.user = self.request.user
+      return super().form_valid(form)
 
 def add_photo(request, profile_id):
     # photo-file will be the "name" attribute on the <input type="file">
